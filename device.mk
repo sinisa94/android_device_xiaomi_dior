@@ -22,9 +22,6 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, device/qcom/common/Android.mk)
-$(call inherit-product-if-exists, vendor/xiaomi/dior/dior-vendor.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 # ART
@@ -38,6 +35,10 @@ PRODUCT_PACKAGES += \
     AntHalService \
     com.dsi.ant.antradio_library \
     libantradio
+
+# Art
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-flags=--no-watch-dog
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -69,6 +70,10 @@ PRODUCT_PACKAGES += \
     init.qcom.bt.sh \
     init.qcom.fm.sh
 
+# CABL
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qualcomm.cabl=0
+
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
@@ -87,24 +92,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
-# Data
-PRODUCT_PACKAGES += \
-    librmnetctl \
-    rmnetcli
-
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8226 \
     gralloc.msm8226 \
     hwcomposer.msm8226 \
-    memtrack.msm8226 \
-    liboverlay \
-    libemoji
-
-# Graphics
-PRODUCT_PACKAGES += \
-    libGLES_android \
-    libstlport
+    memtrack.msm8226
 
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -129,16 +122,6 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8226
-
-PRODUCT_PACKAGES += \
-    gps.conf \
-    flp.conf \
-    izat.conf \
-    quipc.conf \
-    sap.conf
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.gps.agps_provider=1
 
 # Optional CM packages
 PRODUCT_PACKAGES += \
@@ -191,17 +174,9 @@ PRODUCT_COPY_FILES += \
 
 # Media & Audio
 PRODUCT_PACKAGES += \
-      libc2dcolorconvert \
-      libdivxdrmdecrypt \
-      libextmedia_jni \
-      libOmxAacEnc \
-      libOmxAmrEnc \
       libOmxCore \
-      libOmxEvrcEnc \
-      libOmxQcelp13Enc \
       libOmxVdec \
       libOmxVenc \
-      libOmxVidcCommon \
       libstagefrighthw
 
 # Permissions
@@ -236,10 +211,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     power.msm8226
 
-# Qualcomm
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.timed.enable=true \
-    ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+     ro.vendor.extension_library=/vendor/lib/libqti-perfd-client.so
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -256,8 +229,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine-8226.conf:system/etc/thermal-engine-8226.conf
 
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory
+# Time services
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.timed.enable=true
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -279,11 +253,9 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libcurl \
-    libcnefeatureconfig \
     libqsap_sdk \
     libQWiFiSoftApCfg \
-    wcnss_service \
-    libxml2
+    wcnss_service
 
 #    libwcnss_qmi
 
@@ -293,7 +265,8 @@ PRODUCT_DEX_PREOPT_BOOT_FLAGS := --compiler-filter=space
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=0
+    persist.sys.wfd.virtual=0 \
+    ro.disableWifiApFirmwareReload=true
 
 # LTE, GSM/WCDMA
 PRODUCT_PROPERTY_OVERRIDES += \
