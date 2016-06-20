@@ -42,8 +42,7 @@ on init
     symlink /sdcard /storage/sdcard0
 
     # Symbols required for blobs
-    export LD_PRELOAD "/system/lib/libboringssl-compat.so"
-
+   
     write /proc/sys/vm/page-cluster 0
 
 on fs
