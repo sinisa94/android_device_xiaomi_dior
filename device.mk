@@ -22,16 +22,11 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, device/qcom/common/Android.mk)
-$(call inherit-product-if-exists, vendor/xiaomi/dior/dior-vendor.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 # ART
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-filter=speed \
-    dalvik.vm.dex2oat-swap=false \
-    dalvik.vm.image-dex2oat-filter=speed
+    dalvik.vm.dex2oat-flags=--no-watch-dog
 
 # ANT+
 PRODUCT_PACKAGES += \
@@ -74,28 +69,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
 PRODUCT_PACKAGES += \
-    Screencast \
     Snap \
     libxml2 \
     camera.msm8226 \
     libboringssl-compat
 
 # Charger
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    libhealthd.dior
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/sbin/chargeonlymode:root/sbin/chargeonlymode
 
 # Connectivity
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
-
-# Data
-PRODUCT_PACKAGES += \
-    librmnetctl \
-    rmnetcli
-
-# dexpreopt optimization
-PRODUCT_DEX_PREOPT_BOOT_FLAGS := --compiler-filter=space
 
 # Display
 PRODUCT_PACKAGES += \
@@ -142,27 +127,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Graphics
 PRODUCT_PACKAGES += \
-	libGLES_android \
-	libstlport
-
-# Optional CM packages
-PRODUCT_PACKAGES += \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    MagicSmokeWallpapers
-
-# Extra tools in CM
-PRODUCT_PACKAGES += \
-    7z \
-    bash \
-    bzip2 \
-    curl \
-    powertop \
-    unrar \
-    unzip \
-    vim \
-    wget \
-    zip
+    libGLES_android \
+    libstlport
 
 # IPC router
 PRODUCT_COPY_FILES += \
@@ -232,6 +198,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
     frameworks/native/data/etc/android.software.print.xml:system/etc/permissions/android.software.print.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
@@ -299,7 +266,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=0
+    persist.sys.wfd.virtual=0 \
+    ro.disableWifiApFirmwareReload=true
 
 # IO Scheduler
 PRODUCT_PROPERTY_OVERRIDES += \
