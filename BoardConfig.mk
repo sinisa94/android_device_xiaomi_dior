@@ -26,14 +26,10 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a7
-TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=hard
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=hard
-ART_USE_OPTIMIZING_COMPILER := true
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8226
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno305
-USE_CLANG_PLATFORM_BUILD := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -79,6 +75,7 @@ USE_DEVICE_SPECIFIC_GPS := true
 TARGET_PROVIDES_GPS_LOC_API := true
 
 # Graphics
+TARGET_CONTINUOUS_SPLASH_ENABLED  := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
@@ -112,7 +109,7 @@ TARGET_UNIFIED_DEVICE := true
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
 TARGET_KERNEL_SOURCE := kernel/xiaomi/dior
 TARGET_KERNEL_CONFIG := dior_custom_defconfig
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=dior user_debug=31 msm_rtb.filter=0x37 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=dior user_debug=31  androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
@@ -154,10 +151,6 @@ TARGET_RIL_VARIANT := caf
 # Flags
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD -DUSE_RIL_VERSION_10
 COMMON_GLOBAL_CPPFLAGS += -DNO_SECURE_DISCARD -DUSE_RIL_VERSION_10
-
-# Vold
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
