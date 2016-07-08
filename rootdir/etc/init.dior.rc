@@ -129,10 +129,6 @@ on boot
     # Prevents permission denied error for telephony
     chmod 0644 /proc/cmdline
 
-    # For setting tcp delayed ack
-    chown system system /sys/kernel/ipv4/tcp_delack_seg
-    chown system system /sys/kernel/ipv4/tcp_use_userconfig
-
     # To allow interfaces to get v6 address when tethering is enabled
     write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
     write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
@@ -350,15 +346,6 @@ service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
 
-service ril-daemon2 /system/bin/rild -c 2
-    class main
-    socket rild2 stream 660 root radio
-    socket rild-debug2 stream 660 radio system
-    user root
-    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log
-    disabled
-
-
 # Set different perfer network type for different phone type
 on property:ro.boot.modem=LTETD
     setprop ro.telephony.default_network 17
@@ -374,9 +361,6 @@ on property:ro.boot.modem=LTETD
 # Enable manual network selection function for CU
 on property:ro.boot.modem=LTEW
     setprop persist.radio.rat_on combine
-
-on property:persist.radio.multisim.config=none
-    start ril-daemon2
 
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
