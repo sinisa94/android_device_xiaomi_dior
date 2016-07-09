@@ -88,8 +88,7 @@ PRODUCT_PACKAGES += \
     gralloc.msm8226 \
     hwcomposer.msm8226 \
     memtrack.msm8226 \
-    liboverlay \
-    libemoji
+    liboverlay 
 
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
