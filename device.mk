@@ -87,11 +87,7 @@ PRODUCT_PACKAGES += \
     gralloc.msm8226 \
     hwcomposer.msm8226 \
     memtrack.msm8226 \
-<<<<<<< HEAD
     liboverlay 
-=======
-    liboverlay
->>>>>>> boringssl
 
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
