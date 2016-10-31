@@ -34,7 +34,7 @@
 #include <camera/CameraParameters.h>
 
 #define OPEN_RETRIES    10
-#define OPEN_RETRY_MSEC 20
+#define OPEN_RETRY_MSEC 40
 
 static android::Mutex gCameraWrapperLock;
 static camera_module_t *gVendorModule = 0;
