@@ -90,6 +90,9 @@ PRODUCT_PACKAGES += \
     liboverlay
 
 # DRM
+PRODUCT_PACKAGES += \
+    libshims_wvm
+
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
 
