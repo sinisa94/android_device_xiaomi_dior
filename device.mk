@@ -75,9 +75,9 @@ PRODUCT_PACKAGES += \
     libxml2 \
     camera.msm8226
 
-#CMActions
-PRODUCT_PACKAGES += \
-    CMActions
+# CMActions
+# PRODUCT_PACKAGES += \
+#    CMActions
 
 # Connectivity
 PRODUCT_PACKAGES += \
