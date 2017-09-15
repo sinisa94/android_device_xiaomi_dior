@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015, The Linux Foundation. All rights reserved.
+   Copyright (c) 2017, The Linux Foundation. All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -28,30 +28,47 @@
  */
 
 #include <stdlib.h>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 
-#include "vendor_init.h"
+#include <android-base/properties.h>
 #include "property_service.h"
-#include "log.h"
-#include "util.h"
+#include "vendor_init.h"
+
+namespace android {
+namespace init {
+
+void property_override(char const prop[], char const value[])
+{
+    prop_info *pi;
+
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+}
 
 void vendor_load_properties()
 {
-    std::string platform = property_get("ro.board.platform");
+    std::string platform = android::base::GetProperty("ro.board.platform","");
     if (platform != ANDROID_TARGET)
         return;
 
-    std::string modem = property_get("ro.boot.modem");
+    std::string modem = android::base::GetProperty("ro.boot.modem","");
 
     if (modem == "LTEW") {
-        property_set("ro.product.model", "HM NOTE 1LTE");
+        property_override("ro.product.model", "HM NOTE 1LTE");
+    } else if (modem == "LTETD") {
+        property_override("ro.product.model", "HM NOTE 1LTE TD");
     }
 
-    else if (modem == "LTETD") {
-        property_set("ro.product.model", "HM NOTE 1LTE TD");
-    }
-
-    property_set("ro.product.device", "dior");
-    property_set("ro.build.product", "dior");
-    property_set("ro.build.description", "dior-user 4.4.4 KTU84P V8.2.1.0.KHIMIDL release-keys");
-    property_set("ro.build.fingerprint", "Xiaomi/dior/dior:4.4.4/KTU84P/V8.2.1.0.KHIMIDL:user/release-keys");
+    property_override("ro.product.device", "dior");
+    property_override("ro.build.product", "dior");
+    property_override("ro.build.description", "dior-user 4.4.4 KTU84P V8.2.1.0.KHIMIDL release-keys");
+    property_override("ro.build.fingerprint", "Xiaomi/dior/dior:4.4.4/KTU84P/V8.2.1.0.KHIMIDL:user/release-keys");
 }
+
+} // namespace init
+} // namespace android
+
