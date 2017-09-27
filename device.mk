@@ -59,8 +59,7 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    bdaddr_xiaomi \
-    init.qcom.fm.sh
+    bdaddr_xiaomi
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/init.dior.bt.sh:system/bin/init.dior.bt.sh
@@ -128,9 +127,19 @@ PRODUCT_PACKAGES += \
     libGLES_android \
     libstlport
 
+# HIDL
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
+
 # IPC router
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+
+# IPv6
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes \
+    libebtc
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
