@@ -27,6 +27,7 @@ ro.qualcomm.bt.hci_transport=smd
 ro.opengles.version=196608
 ro.sf.lcd_density=320
 persist.hwc.mdpcomp.enable=true
+debug.hwui.use_buffer_age=false
 
 # Gps Smart Battery Savings (depends on sensor hub)
 persist.mot.gps.smart_battery=1
@@ -56,3 +57,11 @@ ro.telephony.call_ring.multiple=false
 
 # Google assistant
 ro.opa.eligible_device=true
+
+# Hardware info
+ro.device.chipset=Qualcomm Snapdragon 400 MSM8228
+ro.device.cpu=1.6GHz quad-core Cortex-A7
+ro.device.gpu=Qualcomm Adreno 305
+ro.device.rear_cam=8 MP
+ro.device.front_cam=2 MP
+ro.device.screen_res=720x1280
