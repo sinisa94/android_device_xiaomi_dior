@@ -65,3 +65,10 @@ ro.device.gpu=Qualcomm Adreno 305
 ro.device.rear_cam=8 MP
 ro.device.front_cam=2 MP
 ro.device.screen_res=720x1280
+
+# ADB
+ro.secure=0
+ro.adb.secure=0
+persist.service.adb.enable=1
+persist.service.debuggable=1
+persist.sys.usb.config=adb
